@@ -1,0 +1,52 @@
+#!/bin/sh
+# the next line restarts using wish \
+exec wish "$0" "$@"
+
+#!/usr/bin/wish
+
+#
+#----xaewmedit part of xaewm http://xinfo.sf.net
+#---This software it's under gnu/gpl license see details at http://gnu.org
+#---Copyrigth 2003 Xento Figal xento@users.sourceforge.net
+#
+
+proc mainline {} {    
+       create_widgets    
+       pack_widgets    
+          
+}
+
+proc create_widgets {} { 
+
+       frame .frm -width 60 -bg black
+       text .frm.text -background white -width 60 -height 18 -yscrollcommand ".frm.scroll set"
+       scrollbar .frm.scroll -command ".frm.text yview"
+       set data [exec cat /usr/share/xaewm/menu.data]
+       .frm.text insert 1.0 "\n$data"
+       frame .frm2 -width 60 -bg black
+       button .frm2.boton1 -text "Guardar" -command guardar_archivo
+       button .frm2.boton2 -text "Salir" -command exit
+
+}
+
+proc pack_widgets {} {
+       
+       pack .frm2    
+       grid .frm2.boton1 .frm2.boton2 
+       pack .frm    
+       pack .frm.scroll -side right -fill y    
+       pack .frm.text -side left 
+
+}
+
+proc guardar_archivo {} {    
+           
+       global fileid
+    
+       set data [.frm.text get 1.0 {end -1c} ]    
+       set fileid [open /usr/share/xaewm/menu.data w]    
+       puts -nonewline $fileid $data    
+       close $fileid    
+}  
+
+mainline            

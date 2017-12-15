@@ -1,0 +1,76 @@
+.\" xaewm - Gestor de X11 basado en aewm++
+.\" Por xento figal 2003 http://xinfo.sf.net
+.\" Licencia: www.gnu.org
+.\" 
+.TH "xaewm" "1x" "0.0.3" "xento figal" "window managers"
+.SH "NOMBRE"
+xaewm Gestor de X\-11 basado en aewm++
+.SH "SYNOPSIS"
+.BI xaewm
+\-display [display],
+\-fn [fuente],
+\-fg|\-bg|\-bd [color],
+\-fm [follow|sloppy|click],
+\-bw [Altura],
+\-md [Escritorios maximos],
+\-tj [left|center|right],
+\-es [true|false],
+\-wm [true|false],
+\-new1|\-new2 [cmd],
+\-usage,
+\-help
+
+.SH "DESCRIPCION"
+.B xaewm
+Es un gestor de X11 basado en aewm++ http://shapire.sf.net/ es muy sencillo, ligero y consume lo minimo en recursos, ademas esta escrito 100% en c++.
+
+Los cambios sobre aewm se pueden definir basicamente en algunas lineas de codigo, algun archivo y MENU, el resto es practicamente igual, la diferencia esta en la adopcion de una serie de herramientas graficas, basadas en tcl/tk que poseen la cualidad de ser realmente ligeras y de consumos reducidos, por lo que podremos disponer de un sistema util en modo grafico con un gasto de recursos minimos.
+
+
+En definitiva un hack como otro cualquiera de aewm++ personificado y adaptadom a mis necesidades, esta aqui por que "somos como somos" mi consejo es que cada uno se adapta su xaewm o aewm++ o aewm a su propias necesidades, son las maravillas de un software libre.
+ 
+.SH "OPCIONES"
+.TP 
+.B \-display \fIdisplay\fP
+Espeficica que display se usa para ejecutar xaewm .Este opcion es util si desea ejecutar xaewm dentro de \fBXnest\fR o para hacer otro tipo de pruebas. 
+
+.TP 
+.B \-md \fInumero\fP
+Define el numero maximo de escritorios virtuales, por defecto son 4.
+
+.TP 
+.B \-tj \fIleft|center|right\fP
+Define la alineacion del texto en los titulos de las ventanas, las opciones son \fBleft\fR=izquierda \fBcenter\fR=centro \fBright\fR=derecha
+
+ 
+.TP 
+.B \-fn \fIfont\-spec\fP
+ Definir la fuente para el texto del titulo de las ventanas.
+
+.TP 
+.B \-fm \fIfollow|sloppy|click\fP
+Espeficica el comportamiento del foco. Follow= sigue al raton sloppy=al pasar por encima click=al pulsar.      
+ 
+ 
+.TP 
+.B \-bw \fIwidth\fP
+Ancho de los bordes de la ventana.
+
+.TP 
+.B \-new1 \fIcmd\fP, \-new2 \fIcmd\fP
+Cambia la accion por defecto al pulsar los botones del raton.Por defecto lanza el menu.
+
+.TP 
+.B \-fg \fIcolor\fP, \-bg \fIcolor\fP, \-bd \fIcolor\fP
+Use
+.I color
+para el color de fondo \fB\-BG\fR, de la ventana \fB\-FG\fR y de los marcos \fB\-BD\fR.
+
+.TP 
+.B \-version
+Imprime en pantalla la version y sale.
+
+.SH "AUTOR"
+xaewm by xento figal <http://xinfo.sf.net>
+.SH "WEBSITE"
+http://xinfo.sourceforge.net/

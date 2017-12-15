@@ -1,0 +1,37 @@
+#--Menu de xaewm---
+#--Para incluir o eliminar una entrada del menu use el patron:
+#espacio
+#%Nombre que se mostrara en pantalla
+#comando
+#espacio
+#--Puede incluir sesiones de X-window con solo poner el nombre del binario
+#--Recuerde refrescar la pantalla del menu principal, tal vez necesite
+#--cerrar el menu y volver a abrirlo para poder ver los cambios.
+#--Los cambios se guardan al instante, auqnue ustedno lo vea al momento.
+#--Para ver mas ayuda consultar la documentacion: man xaewm
+#--
+
+%Xterm 
+xterm
+
+%Galeon
+galeon
+
+%Ehxm
+exhm
+
+%Midcom
+mc
+
+%Socket client
+socketcl
+
+%Nedit
+nedit
+
+%Emacs
+xemacs
+
+%Xterm 
+xterm
+

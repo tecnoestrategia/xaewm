@@ -1,0 +1,193 @@
+###################################################
+##### CHANGELOG FOR XAEWM HTTP://XINFO.SF.NET #####
+###################################################
+
+
+0.0.2 (03 Dec 2003)
+ *Added the definitive menu, it's a simple script in tcl/tk for make easy
+ but not like launch a lot of terminals, this is a solution.
+
+
+
+0.0.1 (28 Nov 2003)
+ *Added a new menu writen 100% in tcl, some changes too, in basemenu.hh 
+  and main.cc, new resize set.	 
+
+
+###################################################
+##### CHANGELOG FOR AEWM++ HTTP://SHAPIRE.SF.NET ##
+###################################################
+
+
+1.0.24 (14 May 2003)
+
+ * Added Rob Eberts patch which changes the size of the titlebar, adds some
+   keybindings to switch desktops with alt+number keys.
+
+1.0.23 (15 Apr 2003)
+
+  * Menu correctly gets DEF_FONT (but not yet opt_font)
+
+1.0.22 (18 Nov 2002)
+
+  * Rewrote resize client code
+  * A few code clean ups here and there...
+
+1.0.21 (16 Nov 2002)
+
+  * Fixed the focus previous client logic.
+  * Added alt key moving of windows (press alt, click on window and drag to move).
+  * Rewrote wire moving of windows.
+  * More code clean up.
+
+1.0.20 (12 Nov 2002)
+  
+  * Focusing the previous client in the stacking order was broken so its
+    been disabled. This caused a pretty major show stopper when clients
+    would sometimes loose focus and a client underneath them would get focus
+    and be raised. Looks like this will need more time to fix then one night.
+
+1.0.19 (11 Nov 2002)
+ 
+  * Used valgrind to get rid of some errors and memory leaks. 
+  * Fixed up the makefiles for aewm++ and all the goodies.
+  * Got rid of some shit like the RPM spec files I don't plan on maintaining.
+
+1.0.18 was never released, it was a test build that had some rudimentary
+	pixmapped window decorations.
+
+1.0.17 (May 27 2002)
+
+  * Replaced my linked list with STL List.
+  * Code clean up (variable and function names were inconsistent).
+  * Fixed bug in partial GNOME compliancy. (Open Office 1.0 now works)
+  * Got rid of SIGKILL in signal handler since SIGKILL cannot be blocked.
+  * Added SIGHUP to the signal handler.
+  * Fix for fspanel not updating its clock correctly.
+  * Changed default focus model to click to focus.
+  * Appbar now checks the home directory for a .appbar file to use as a 
+    configuration file.
+  * Added a rpm spec file for aewm++, appbar, ae_fspanel and setrootimage.
+    All can be built using rpm -ta (package_name).tar.gz
+
+1.0.16 (6 Feb)
+
+  * Remove key grab for escape key when we weren't using it.
+  * Small focus issue change.
+  * Fixed a function in windowmanager.cc which wasn't deallocating memory after it was used.
+
+1.0.16-RC3 (2 Feb 2002)
+
+  * Fixed problem with reverting focus under sloppy focus. 
+  * Merged in a patch from David Lawrence Ramsey which contains the manual page
+    formatting fix, the new icon and rcfile change for appbar, the typo fix for
+    setrootimage. Also added more support for NET_WM hints in fspanel, aewm++
+    has also been updated to add support for this. This changed involved hints
+    for virtual desktops. Also in this patch is a minor change to 
+    windowmanager.cc where I accidentally left some code over when NET_WM hints
+    were configurable.
+  * Added a disclaimer to the README of fspanel so that it states that it is
+    not the official version but an updated version with changes by me and 
+    others involved with this project.
+    
+1.0.16-RC2 (28 Jan 2002)
+
+  * Fixed a focus problem when reverting to a previously focused client (ie.
+    when you close a client it reverts focus to the next client in the stacking 
+    order).
+  * Made a small change in appearance of unfocused windows. The line which 
+    separates the small box in the right corner is not painted. Its only painted 
+    on a focused window now.
+  * Changed back the code which initially maps a window. I though withdrawn 
+    windows shouldn't be mapped. I think I am confused =) Withdrawn windows 
+    will now be mapped initially.
+  * Changed default focus model to sloppy.
+  * Got rid of -arch=686 in appbar's and setrootimages Makefiles.
+
+1.0.16-RC1 (26 Jan 2002)
+
+  * Added in David Lawrence Ramsey's hyperbolic gradient patch. This is added
+    to appbar and to setrootimage.
+
+1.0.16-pre11 (20 Jan 2002)
+
+  * Changed the fork function in misc.cc to check the length of the
+    command to execute if its zero length then obviously don't fork 
+    anything.
+  * Hopefully squashed the bug which would cause aewm++ to lock up.
+  * Badly needed updates to the manpage.
+  * There are only 2 command line options to execute commands via button clicks
+    they are -new1 and -new2 which coorespond to the left and right mouse buttons
+    respectively. This is the best compromise I can come up with and still have
+    the middle button pop up the icon menu.
+  * Fixed -fn option. The user select font was not being used for unfocused
+    windows.
+
+1.0.16-pre10 (18 Jan 2002)
+
+  * Fixes to LinkedListIterator
+  * Iconifying clients with transients will correctly iconify all transients
+    and vice versa.
+  * Minor updates to appbar so that it disables always on top hint and strut
+    when hidden.
+
+1.0.16-pre9 (15 Jan 2002)
+
+  * Merged in David Lawrence Ramsey's patch which fixes typos in the man page,
+    Changelog and in windowmanager.cc.
+  * Code cleanup, got rid of DEBUG code. It was hardly ever used anyway.
+  * Clean up in client move code.
+  * Window manager keeps track of the command line which started the window manager
+    upon restart the same command line is used.
+	
+1.0.16-pre8 (13 Jan 2002)
+
+  * More work on focus issues. Should be just about right now!
+  * -fm click|sloppy|follow are the commandline options for focus model.
+
+1.0.16-pre7 (12 Jan 2002)
+
+  * Updated the commandline option -usage.
+  * More clean ups in windowmanager.cc.
+
+1.0.16-pre6 (12 Jan 2002)
+
+  * Merged in David Lawrence Ramsey's focus policy patch. Seems pretty
+    close to the code in pre5 however we will go with his.
+  * Fixed problem with focus when switching desktops with the key combos.
+
+1.0.16-pre5 (3 Jan 2002)
+
+  * Initial support for sloppy focus and click to focus and configurable
+    from the command line.
+
+1.0.16-pre4 (31 Dec 2001)
+ 
+  * Initial configuration handlers for sloppy focus, click to focus and
+    focus follows mouse added but commented out.
+  * Added LOOKING_FOR_HELP file which describes that this project is
+    in need of help it provides contact information.
+
+1.0.16-pre3 (29 Dec 2001)
+
+  * Added a patch which changes the fspanel to have buttons for virtual
+    desktops instead of arrows. I can't remember who sent me this patch. If
+    it was you email me so I can give you credit.
+
+1.0.16-pre2 (29 Dec 2001)
+ 
+  * Updates to setrootimage in goodies subdirectory. It now takes advantage
+    of all of the style options provided by the blackbox image code.
+
+1.0.16-pre1 (29 Dec 2001)
+
+  * Got rid of compile time option NET, the extended hints are compiled
+    in automatically. There is no reason not to have them as they don't
+    rely on any external libs or anything.
+  * Some clean up in client.cc.
+  * Clean ups in man page.
+
+
+
+
+** OLDER JUNK WAS OMITTED **

@@ -1,0 +1,170 @@
+#!/bin/sh
+# the next line restarts using wish \
+exec wish "$0" "$@"
+
+#!/usr/bin/wish
+
+#
+#----xaewmenu part of xaewm http://xinfo.sf.net
+#---This software it's under gnu/gpl license see details at http://gnu.org
+#---Copyrigth 2003 Xento Figal xento@users.sourceforge.net
+#
+
+
+#----definitions--------
+set baseprogname "Menu"
+set data_file "menu.data"
+set body_list {}
+#set bodyname ""
+
+
+#--botones------------
+button .ab -text "Editar menu" -command editar
+
+button .xb -text "Cerrar X" -command logoutwin
+
+button .xc -text "Salir" -command exit
+#--fin botones-------
+
+frame .f_main -relief groove -borderwidth 2
+
+#--organizando---- 
+frame .tabframe -width 12p -relief sunken
+frame .f_save_main -relief raised -borderwidth 0
+label .saved_headline -text "Menu "
+frame .f_save_1 -borderwidth 0
+frame .f_save_2 -borderwidth 0
+frame .f_save_3 -borderwidth 0
+frame .f_save_placeholder -width 10p -height 10p -borderwidth 0
+listbox .saved_bodys -height 9 -width 28 -borderwidth 1 \
+    -yscrollcommand {.vertscroll set} -xscrollcommand {.horscroll set}
+scrollbar .vertscroll -orient vert -borderwidth 0 -background \#dadada -command {.saved_bodys yview}
+scrollbar .horscroll -orient horiz -borderwidth 0 -background \#dadada -command {.saved_bodys xview}
+
+#--lineas del cuerpo dle frame---
+entry .cutline -relief sunken -borderwidth 1p -textvariable color_line
+
+
+#
+#
+proc logoutwin {} {
+    global version
+
+    toplevel .logoutwin
+    wm title .logoutwin " Cerrar la session de X? "
+#    wm transient . [winfo toplevel .]
+
+    set bodyname ""
+    frame .logoutwin.f -relief groove -borderwidth 1
+
+    label .logoutwin.namelabel0 -text \
+	"Esto cerrara su sesion actual de X Window."
+    label .logoutwin.namelabel1 -text \
+    	"Esta seguro de que desea cerrar el servidor de X?"	
+
+    button .logoutwin.cancel -text "No cerrar X" -command {
+	destroy .logoutwin
+    }
+
+    button .logoutwin.yes -text "Cerrar X" -command exit
+
+    pack .logoutwin.f -padx 10p -pady 10p -fill x
+    pack .logoutwin.namelabel0 -in .logoutwin.f
+    pack .logoutwin.namelabel1 -in .logoutwin.f
+
+    pack .logoutwin.yes .logoutwin.cancel \
+	-in .logoutwin.f -side right -padx 5p -pady 5p
+    
+    grab set .logoutwin
+    tkwait window .logoutwin
+}
+
+
+
+#
+#
+proc editar {} {
+    exec /usr/share/xaewm/xaewmedit
+}
+
+
+#
+#
+proc getfile {filename} {
+    global body_list
+
+    set $body_list {}
+    .saved_bodys delete 0 end;
+    if { [file exists $filename] } {
+	set f [ open $filename r ]
+	while { [gets $f line] >= 0 } {
+	    # get without commentlines
+	    if { [regexp -nocase {^[^\#]} $line] } {
+		# cut the %-marker from body-names
+		if { [regexp -nocase {^%(.*)} $line whole line] } {
+		    .saved_bodys insert end $line;
+		    lappend body_list $line;
+		} else {
+		    lappend body_list $line;
+		}
+	    }
+	}
+	close $f
+    }
+}
+
+
+#
+#
+#
+proc exec_cmd {cmd} {
+    if {$cmd != ""} {
+	exec $cmd &
+	exec sleep 3s
+	wm resizable [winfo toplevel .] 0 0
+	wm iconify [winfo toplevel .]
+    }
+}
+
+
+#----init-section------
+
+wm title . "$baseprogname "
+
+if { [file exists "/usr/share/xaewm/$data_file"] } {
+    getfile "/usr/share/xaewm/$data_file"
+} else {
+    getfile "$data_file"
+}
+
+
+#----bindings----------
+
+bind .saved_bodys <Double-Button-1> {
+    set	selected_cmd \
+    	[ lindex $body_list [expr [lsearch $body_list [selection get]] +1] ];
+    exec_cmd $selected_cmd;
+}
+bind .saved_bodys <Key-Return> {
+    set selected_cmd \
+    	[ lindex $body_list [expr [lsearch $body_list [selection get]] +1] ];
+    exec_cmd $selected_cmd;
+}
+
+
+#----pack-section------
+pack .f_main -pady 1p;
+pack .f_save_main -in .f_main -pady 5p;
+pack .saved_headline -in .f_save_main -fill x;
+pack .f_save_1 -in .f_save_main -fill both -padx 0 -pady 0;
+pack .f_save_2 -in .f_save_main -fill both -padx 0 -pady 0;
+pack .f_save_3 -in .f_save_main -fill x;
+pack .f_save_placeholder -in .f_save_2 -side right -padx 0 -pady 0;
+pack .saved_bodys -in .f_save_1 -side left;
+pack .vertscroll  -in .f_save_1 -fill y -side right;
+pack .horscroll -in .f_save_2 -fill x;
+pack .tabframe -in .f_main -after .f_save_main -side right
+pack .xc -side left
+pack .xb -side left
+pack .ab -fill x
+
